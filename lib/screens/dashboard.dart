@@ -89,7 +89,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     return Stack(
       children: [
         Scaffold(
-          backgroundColor: Color.fromARGB(255, 250, 177, 171),
+          backgroundColor: Color.fromARGB(255, 248, 189, 184),
           appBar: CustomAppBar(
             title: Text(
               'Meus Contatos',
@@ -114,7 +114,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 15,
+                    height: 25,
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
@@ -172,34 +172,34 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       children: [
                         Row(
                           children: <Widget>[
-                            CircleAvatar(
-                              backgroundColor: Color(0XFFB71731),
-                              child: IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CreateUser()),
-                                ),
-                              ),
-                            ),
+                            // CircleAvatar(
+                            //   backgroundColor: Color(0XFFB71731),
+                            //   child: IconButton(
+                            //     icon: Icon(Icons.delete),
+                            //     onPressed: () => Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //           builder: (context) => CreateUser()),
+                            //     ),
+                            //   ),
+                            // ),
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              'Deletar Contato',
-                              style: GoogleFonts.rancho(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w300,
-                                color: Color(0XFFB71731),
-                              ),
-                            ),
+                            // Text(
+                            //   'Deletar Contato',
+                            //   style: GoogleFonts.rancho(
+                            //     fontSize: 28,
+                            //     fontWeight: FontWeight.w300,
+                            //     color: Color(0XFFB71731),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 25),
+                  SizedBox(height: 45),
                   // Row(
                   //   children: [
                   //     Expanded(
@@ -342,25 +342,25 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           snapshot.data!.docs[index];
                                       return Row(
                                         children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0, top: 5, right: 5),
-                                              child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  documentSnapshot["nameUser"],
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.rancho(
-                                                    fontSize: 24,
-                                                    fontWeight: FontWeight.w300,
-                                                    color: Color.fromARGB(
-                                                        255, 255, 255, 255),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                          // Expanded(
+                                          //   child: Padding(
+                                          //     padding: EdgeInsets.only(
+                                          //         left: 10.0, top: 5, right: 5),
+                                          //     child: Align(
+                                          //       alignment: Alignment.centerLeft,
+                                          //       child: Text(
+                                          //         documentSnapshot["nameUser"],
+                                          //         textAlign: TextAlign.center,
+                                          //         style: GoogleFonts.rancho(
+                                          //           fontSize: 24,
+                                          //           fontWeight: FontWeight.w300,
+                                          //           color: Color.fromARGB(
+                                          //               255, 255, 255, 255),
+                                          //         ),
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                           // Expanded(
                                           //   child: Text(
                                           //     documentSnapshot["userId"],
@@ -369,25 +369,25 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                           //         color: Colors.white),
                                           //   ),
                                           // ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 10.0, top: 5, right: 5),
-                                              child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  documentSnapshot["phone"],
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.rancho(
-                                                    fontSize: 24,
-                                                    fontWeight: FontWeight.w300,
-                                                    color: Color.fromARGB(
-                                                        255, 255, 255, 255),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                          // Expanded(
+                                          //   child: Padding(
+                                          //     padding: EdgeInsets.only(
+                                          //         left: 10.0, top: 5, right: 5),
+                                          //     child: Align(
+                                          //       alignment: Alignment.centerLeft,
+                                          //       child: Text(
+                                          //         documentSnapshot["phone"],
+                                          //         textAlign: TextAlign.center,
+                                          //         style: GoogleFonts.rancho(
+                                          //           fontSize: 24,
+                                          //           fontWeight: FontWeight.w300,
+                                          //           color: Color.fromARGB(
+                                          //               255, 255, 255, 255),
+                                          //         ),
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                           // Expanded(
                                           //   child: Text(
                                           //     documentSnapshot["email"],

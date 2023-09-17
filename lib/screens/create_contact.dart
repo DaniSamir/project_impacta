@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:project_impacta/screens/dashboard.dart';
 import 'package:project_impacta/widgets/text_field_custom.dart';
 import 'package:project_impacta/widgets/top_bar.dart';
+
+import 'package:google_fonts/google_fonts.dart';
 
 class CreateUser extends StatefulWidget {
   const CreateUser({super.key});
@@ -16,11 +20,12 @@ class _CreateUserState extends State<CreateUser> {
   late String userId;
   late String phone;
   late String email;
+
   createData() {
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection('crud').doc(nameUser);
 
-    // create Map to send data in key:value pair form
+
     Map<String, dynamic> students = ({
       "nameUser": nameUser,
       "userId": userId,
@@ -29,10 +34,66 @@ class _CreateUserState extends State<CreateUser> {
     });
 
     // send data to Firebase
-    documentReference.set(students).whenComplete(() => AlertDialog(
-          icon: Icon(Icons.check_circle_rounded),
-          title: Text('Usuário adicionado com sucesso'),
-        ));
+    documentReference.set(students).whenComplete(() => showMyDialog());
+  }
+
+  Future<void> showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(45))),
+          content: const SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.check_circle,
+                  color: Color.fromARGB(255, 167, 1, 29),
+                  size: 45,
+                ),
+                SizedBox(height: 15),
+                Text('Usuário criado com sucesso!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                    )
+
+                    // GoogleFonts.rancho(
+                    //   fontSize: 40,
+                    //   fontWeight: FontWeight.w300,
+                    //   color: Color(0XFFB71731),
+                    // ),
+                    ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            Align(
+              alignment: AlignmentDirectional.center,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll<Color>(
+                    Color.fromARGB(255, 167, 1, 29),
+                  ),
+                ),
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DashBoardScreen()),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   getStudentName(name) {
@@ -54,72 +115,127 @@ class _CreateUserState extends State<CreateUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: TopBar(
-      //   title: ' Criar Usuário',
-      //   child: Container(),
-      //   onPressed: () {
-      //     MaterialPageRoute(builder: (context) => MyApp());
-      //   },
-      // ),
-      appBar: AppBar(
-        title: Text(' Criar Usuário'),
-        centerTitle: true,
+      backgroundColor: Color.fromARGB(255, 248, 189, 184),
+      appBar: CustomAppBar(
+        title: Text(
+          'Criar Contato',
+          style: GoogleFonts.rancho(fontSize: 34, fontWeight: FontWeight.w700),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new_outlined),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DashBoardScreen()),
+          ),
+        ),
       ),
+      // appBar: AppBar(
+      //   title: Text(' Criar Usuário'),
+      //   centerTitle: true,
+      // ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          padding: EdgeInsets.fromLTRB(20, 80, 20, 0),
           child: Column(
             children: [
-              Icon(
-                Icons.person,
-                size: 150,
+              CircleAvatar(
+                radius: 80.0,
+                backgroundImage: AssetImage('images/user.png'),
               ),
-              TextFormField(
-                style: simpleTextStyle(),
-                decoration: textFieldCuston(
-                  'Nome',
-                  Icon(Icons.account_circle_outlined),
-                ),
-                onChanged: (String name) {
-                  setState(() {
-                    getStudentName(name);
-                  });
-                },
+              SizedBox(height: 16),
+              Container(
+                height: 350,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 255, 97, 97),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0),
+                      bottomLeft: Radius.circular(40.0),
+                      bottomRight: Radius.circular(40.0),
+                    )),
+                child: Column(children: [
+                  SizedBox(height: 10.0),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15, top: 8, right: 15),
+                    child: TextFormField(
+                      style: simpleTextStyle(),
+                      decoration: textFieldCustom(
+                        'Nome',
+                        const Icon(
+                          Icons.account_circle_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
+                      inputFormatters: [LengthLimitingTextInputFormatter(20)],
+                      onChanged: (String name) {
+                        setState(() {
+                          getStudentName(name);
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15, top: 8, right: 15),
+                    child: TextFormField(
+                      style: simpleTextStyle(),
+                      decoration: textFieldCustom(
+                        'Id',
+                        Icon(
+                          Icons.perm_identity_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
+                      inputFormatters: [LengthLimitingTextInputFormatter(20)],
+                      onChanged: (String sID) {
+                        getStudentID(sID);
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15, top: 8, right: 15),
+                    child: TextFormField(
+                      style: simpleTextStyle(),
+                      decoration: textFieldCustom(
+                        'Telefone',
+                        Icon(
+                          Icons.phone_android,
+                          color: Colors.white,
+                        ),
+                      ),
+                      inputFormatters: [
+                        phoneTextFormatter,
+                        LengthLimitingTextInputFormatter(20)
+                      ],
+                      keyboardType: TextInputType.datetime,
+                      onChanged: (String pID) {
+                        getStudyProgramID(pID);
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Padding(
+                    padding: EdgeInsets.only(left: 15, top: 8, right: 15),
+                    child: TextFormField(
+                      style: simpleTextStyle(),
+                      decoration: textFieldCustom(
+                        'E-mail',
+                        Icon(
+                          Icons.email,
+                          color: Colors.white,
+                        ),
+                      ),
+                      inputFormatters: [LengthLimitingTextInputFormatter(20)],
+                      onChanged: (String gpa) {
+                        getStudentCGPA(gpa);
+                      },
+                    ),
+                  ),
+                ]),
               ),
-              SizedBox(height: 10.0),
-              TextFormField(
-                style: simpleTextStyle(),
-                decoration: textFieldCuston(
-                  'Id',
-                  Icon(Icons.perm_identity_outlined),
-                ),
-                onChanged: (String sID) {
-                  getStudentID(sID);
-                },
-              ),
-              SizedBox(height: 10.0),
-              TextFormField(
-                style: simpleTextStyle(),
-                decoration: textFieldCuston(
-                  'Telefone',
-                  Icon(Icons.phone_android),
-                ),
-                onChanged: (String pID) {
-                  getStudyProgramID(pID);
-                },
-              ),
-              SizedBox(height: 10.0),
-              TextFormField(
-                style: simpleTextStyle(),
-                decoration: textFieldCuston(
-                  'E-mail',
-                  Icon(Icons.email),
-                ),
-                onChanged: (String gpa) {
-                  getStudentCGPA(gpa);
-                },
-              ),
-              SizedBox(height: 15),
+              SizedBox(height: 45),
               Row(
                 children: [
                   Expanded(
@@ -133,10 +249,14 @@ class _CreateUserState extends State<CreateUser> {
                           shape: raisedButtonBorder(),
                         ),
                         onPressed: () => createData(),
-                        child: Text('Create',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
+                        child: Text(
+                          'Create',
+                          style: GoogleFonts.rancho(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -149,3 +269,6 @@ class _CreateUserState extends State<CreateUser> {
     );
   }
 }
+
+MaskTextInputFormatter phoneTextFormatter = MaskTextInputFormatter(
+    mask: ' (##) # ####-####', filter: {"#": RegExp(r'[0-9]')});

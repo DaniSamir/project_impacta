@@ -105,17 +105,20 @@ Widget kBackBtn = Icon(
 );
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
+  final Widget? title;
+  final Widget? leading;
+  final double elevation;
+  final List<Widget>? actions;
+  bool? withCircle;
+
+  CustomAppBar({
     Key? key,
     this.title,
     this.leading,
     this.actions,
     this.elevation = 2.0,
+    this.withCircle = false,
   }) : super(key: key);
-  final Widget? title;
-  final Widget? leading;
-  final double elevation;
-  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -160,39 +163,40 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     width: double.infinity,
                     color: Colors.transparent,
                     child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0XFFB71731),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: const Radius.circular(40.0),
-                            bottomRight: const Radius.circular(40.0),
-                          )),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(70, 40, 20, 0),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 40.0,
-                                  backgroundImage:
-                                      AssetImage('images/user.png'),
-                                ),
-                                Container(
-                                    padding: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Usuário Teste',
-                                      style: GoogleFonts.rancho(
-                                        fontSize: 30,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                        decoration: BoxDecoration(
+                            color: Color(0XFFB71731),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: const Radius.circular(40.0),
+                              bottomRight: const Radius.circular(40.0),
+                            )),
+                        child: withCircle!
+                            ? Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(70, 40, 20, 0),
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 40.0,
+                                          backgroundImage:
+                                              AssetImage('images/user.png'),
+                                        ),
+                                        Container(
+                                            padding: EdgeInsets.only(left: 15),
+                                            child: Text(
+                                              'Usuário Teste',
+                                              style: GoogleFonts.rancho(
+                                                fontSize: 30,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ))
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              )
+                            : SizedBox.shrink()),
                   ),
                 );
               },
@@ -204,7 +208,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(150.0);
+  Size get preferredSize =>
+      withCircle! ? Size.fromHeight(150.0) : Size.fromHeight(50.0);
 }
 
 class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
