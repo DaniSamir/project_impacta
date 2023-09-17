@@ -31,7 +31,7 @@ void main() async {
   await Firebase.initializeApp();
   runApp(
     MaterialApp(
-      home: MyApp(),
+      home: DashBoardScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,

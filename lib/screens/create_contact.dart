@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project_impacta/screens/dashboard.dart';
 import 'package:project_impacta/widgets/text_field_custom.dart';
+import 'package:project_impacta/widgets/top_bar.dart';
 
 class CreateUser extends StatefulWidget {
   const CreateUser({super.key});
@@ -52,6 +54,13 @@ class _CreateUserState extends State<CreateUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: TopBar(
+      //   title: ' Criar Usuário',
+      //   child: Container(),
+      //   onPressed: () {
+      //     MaterialPageRoute(builder: (context) => MyApp());
+      //   },
+      // ),
       appBar: AppBar(
         title: Text(' Criar Usuário'),
         centerTitle: true,
