@@ -22,16 +22,9 @@ class _CreateUserState extends State<CreateUser> {
   late String email;
 
   createData() {
-    DocumentReference documentReference =
-        FirebaseFirestore.instance.collection('crud').doc(nameUser);
+    DocumentReference documentReference = FirebaseFirestore.instance.collection('crud').doc(nameUser);
 
-
-    Map<String, dynamic> students = ({
-      "nameUser": nameUser,
-      "userId": userId,
-      "phone": phone,
-      "email": email
-    });
+    Map<String, dynamic> students = ({"nameUser": nameUser, "userId": userId, "phone": phone, "email": email});
 
     // send data to Firebase
     documentReference.set(students).whenComplete(() => showMyDialog());
@@ -43,8 +36,7 @@ class _CreateUserState extends State<CreateUser> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(45))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(45))),
           content: const SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -205,10 +197,7 @@ class _CreateUserState extends State<CreateUser> {
                           color: Colors.white,
                         ),
                       ),
-                      inputFormatters: [
-                        phoneTextFormatter,
-                        LengthLimitingTextInputFormatter(20)
-                      ],
+                      inputFormatters: [phoneTextFormatter, LengthLimitingTextInputFormatter(20)],
                       keyboardType: TextInputType.datetime,
                       onChanged: (String pID) {
                         getStudyProgramID(pID);
@@ -270,5 +259,4 @@ class _CreateUserState extends State<CreateUser> {
   }
 }
 
-MaskTextInputFormatter phoneTextFormatter = MaskTextInputFormatter(
-    mask: ' (##) # ####-####', filter: {"#": RegExp(r'[0-9]')});
+MaskTextInputFormatter phoneTextFormatter = MaskTextInputFormatter(mask: ' (##) # ####-####', filter: {"#": RegExp(r'[0-9]')});
